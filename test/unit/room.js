@@ -22,5 +22,11 @@ describe('Room', function(){
       expect(living.area()).to.equal(100);
     });
   });
+  describe('#cost', function(){
+    it('should return the cost per sq.ft. of the room (assumes $5/sq.ft.)', function(){
+      var living = new Room('living room', '10', '10');
+      expect(living.cost()).to.equal(500);
+    });
+  });
 
 });
