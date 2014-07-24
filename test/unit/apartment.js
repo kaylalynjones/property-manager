@@ -39,6 +39,17 @@ describe('Apartment', function(){
       expect(a1.cost()).to.equal(1640);
     });
   });
+  describe('#bedrooms', function(){
+    it('should return the number of bedrooms in the apartment', function(){
+      var a1 = new Apartment('a1');
+      var r1 = new Room('bedroom', '10', '12');
+      var r2 = new Room('living room', '12', '12');
+      var r3 = new Room('bathroom', '8', '8');
+      a1.rooms.push(r1, r2, r3);
+
+      expect(a1.bedrooms()).to.equal(1);
+    });
+  });
 
 });
 
