@@ -6,6 +6,7 @@
 var expect = require('chai').expect;
 var Apartment = require('../../app/models/apartment');
 var Room = require('../../app/models/room');
+var Renter = require('../../app/models/renter');
 
 describe('Apartment', function(){
   describe('constructor', function(){
@@ -50,6 +51,19 @@ describe('Apartment', function(){
       expect(a1.bedrooms()).to.equal(1);
     });
   });
+  describe('#isAvailable', function(){
+    it('should inform if the apartment has a available bedroom', function(){
+      var a1 = new Apartment('a1');
+      var r1 = new Room('bedroom', '10', '12');
+      var r2 = new Room('bedroom', '10', '12');
+      var r3 = new Room('living room', '12', '12');
+      var r4 = new Room('bathroom', '8', '8');
+      var bob = new Renter('bob', '35', 'm', 'social worker');
+      a1.renters.push(bob);
+      a1.rooms.push(r1, r2, r3, r4);
 
+      expect(a1.isAvailable()).to.be.true;
+    });
+  });
 });
 

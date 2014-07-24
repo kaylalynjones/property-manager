@@ -32,4 +32,9 @@ Apartment.prototype.bedrooms = function() {
   }
   return beds;
 };
+
+Apartment.prototype.isAvailable = function(){
+  return this.bedrooms() > this.renters.length;
+};
+
 module.exports = Apartment;
