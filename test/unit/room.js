@@ -14,6 +14,7 @@ describe('Room', function(){
       expect(bath.name).to.equal('bathroom');
       expect(bath.width).to.equal(8);
       expect(bath.length).to.equal(8);
+      expect(bath.isBedroom).to.be.false;
     });
   });
   describe('#area', function(){
