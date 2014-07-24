@@ -25,4 +25,21 @@ Renter.prototype.work = function(){
   }
 };
 
+Renter.prototype.payRent = function(rent){
+
+  if( this.cash >= rent && this.isEvicted === false ){
+    this.cash -= rent;
+  } else {
+    this.isEvicted = true;
+  }
+};
+
+Renter.prototype.party = function(){
+  var vol = Math.floor(Math.random() * 10) + 1;
+  if(vol > 8){
+    this.isEvicted = true;
+  }
+  return vol;
+};
+
 module.exports = Renter;

@@ -28,5 +28,34 @@ describe('Renter', function(){
       expect(bob.cash).to.be.within(250, 5750);
     });
   });
+  describe('#payRent', function(){
+    it('should decrease cash & isEvicted stays false', function(){
+      var bob = new Renter('bob', '35', 'm', 'social worker');
+      bob.cash = 5000;
+      bob.payRent(1200);
+      expect(bob.cash).to.equal(3800);
+      expect(bob.isEvicted).to.be.false;
+    });
+    it('should change isEvicted to true and cash stays the same', function(){
+      var bob = new Renter('bob', '35', 'm', 'social worker');
+      bob.cash = 1000;
+      bob.payRent(1200);
+      expect(bob.cash).to.equal(1000);
+      expect(bob.isEvicted).to.be.true;
+    });
+  });
 
+  describe('#party', function(){
+    it('should evict renter if party volume is greater than 8', function(){
+      var bob = new Renter('bob', '35', 'm', 'social worker');
+      var vol = bob.party();
+      while(vol <= 8){
+        vol = bob.party();
+        //console.log(vol, bob.isEvicted);
+      }
+
+      expect(vol).to.be.above(8);
+      expect(bob.isEvicted).to.be.true;
+    });
+  });
 });
