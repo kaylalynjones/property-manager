@@ -44,18 +44,14 @@ describe('Renter', function(){
       expect(bob.isEvicted).to.be.true;
     });
   });
-
   describe('#party', function(){
     it('should evict renter if party volume is greater than 8', function(){
       var bob = new Renter('bob', '35', 'm', 'social worker');
-      var vol = bob.party();
-      while(vol <= 8){
-        vol = bob.party();
-        //console.log(vol, bob.isEvicted);
+      while(bob.isEvicted === false){
+        bob.party();
       }
-
-      expect(vol).to.be.above(8);
       expect(bob.isEvicted).to.be.true;
     });
   });
+
 });

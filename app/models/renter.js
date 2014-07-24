@@ -39,7 +39,7 @@ Renter.prototype.party = function(){
   if(vol > 8){
     this.isEvicted = true;
   }
-  return vol;
+  //console.log(vol);
 };
 
 module.exports = Renter;
