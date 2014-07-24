@@ -38,13 +38,6 @@ Renter.prototype.party = function(){
   if(!this.isEvicted){
     this.isEvicted = (Math.floor(Math.random() * 10) + 1) > 8 ? true : false;
   }
-  /*
-  var vol = Math.floor(Math.random() * 10) + 1;
-  if(vol > 8){
-    this.isEvicted = true;
-  }
-  //console.log(vol);
-  */
 };
 
 module.exports = Renter;
