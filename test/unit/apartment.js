@@ -17,7 +17,7 @@ describe('Apartment', function(){
       expect(a1.renters).to.have.length(0);
     });
   });
-  describe('area', function(){
+  describe('#area', function(){
     it('should return the total area of the apartment', function(){
       var a1 = new Apartment('a1');
       var r1 = new Room('bedroom', '10', '12');
@@ -26,6 +26,17 @@ describe('Apartment', function(){
       a1.rooms.push(r1, r2, r3);
 
       expect(a1.area()).to.equal(328);
+    });
+  });
+  describe('#cost', function(){
+    it('should return the total cost of the apartment', function(){
+      var a1 = new Apartment('a1');
+      var r1 = new Room('bedroom', '10', '12');
+      var r2 = new Room('living room', '12', '12');
+      var r3 = new Room('bathroom', '8', '8');
+      a1.rooms.push(r1, r2, r3);
+
+      expect(a1.cost()).to.equal(1640);
     });
   });
 

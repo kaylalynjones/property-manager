@@ -15,4 +15,12 @@ Apartment.prototype.area = function() {
   return combinedArea;
 };
 
+Apartment.prototype.cost = function() {
+  var cost = 0;
+  for (var i = 0; i< this.rooms.length; i++) {
+    cost += this.rooms[i].cost();
+  }
+  return cost;
+};
+
 module.exports = Apartment;
