@@ -20,5 +20,13 @@ describe('Renter', function(){
       expect(bob.profession).to.equal('social worker');
     });
   });
+  describe('#work', function(){
+    it('should add cash to renter when he works', function(){
+      var bob = new Renter('bob', '35', 'm', 'social worker');
+
+      expect(bob.profession).to.equal('social worker');
+      expect(bob.cash).to.be.within(250, 5750);
+    });
+  });
 
 });

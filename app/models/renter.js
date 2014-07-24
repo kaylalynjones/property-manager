@@ -9,4 +9,20 @@ function Renter(name, age, gender, profession){
   this.profession = profession;
 }
 
+Renter.prototype.work = function(){
+  switch(this.profession){
+    case 'movie star':
+      this.cash += Math.floor(Math.random() * 7001) + 3000;
+      break;
+    case 'coder':
+      this.cash += Math.floor(Math.random() * 6001) + 1000;
+      break;
+    case 'waiter':
+      this.cash += Math.floor(Math.random() * 201) + 50;
+      break;
+    case 'social worker':
+      this.cash += Math.floor(Math.random() * 601) + 150;
+  }
+};
+
 module.exports = Renter;
