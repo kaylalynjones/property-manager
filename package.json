@@ -1,26 +1,23 @@
 {
   "name": "property-manager",
   "version": "0.0.0",
-  "description": "A property management app with Node and MongoDB",
+  "description": "Simulated Property Manager wity Partying",
   "main": "app/index.js",
   "bin": {"coveralls" : "./node_modules/coveralls/bin/coveralls.js"},
-  "directories": {
-    "test": "test",
-    "coveralls" : "./node_modules/mocha/bin/mocha test --recursive -r blanket -R mocha-lcov-reporter | coveralls"
-  },
   "scripts": {
-    "test": "mocha test --recursive -R spec"
+    "test": "mocha test --recursive -R spec",
+    "coveralls" : "./node_modules/mocha/bin/mocha test --recursive -r blanket -R mocha-lcov-reporter | coveralls"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ABarnhard/property-manager"
+    "url": "https://github.com/abarnhard/property-manager"
   },
   "author": "Adam Barnhard <admbarn@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ABarnhard/property-manager/issues"
+    "url": "https://github.com/abarnhard/property-manager/issues"
   },
-  "homepage": "https://github.com/ABarnhard/property-manager",
+  "homepage": "https://github.com/abarnhard/property-manager",
   "config": {
     "blanket": {
       "pattern": "/app/"
