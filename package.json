@@ -6,7 +6,7 @@
   "bin": {"coveralls" : "./node_modules/coveralls/bin/coveralls.js"},
   "directories": {
     "test": "test",
-    "coveralls" : "./node_modules/mocha/bin/mocha test --recursive -r blanket -R mocha-lcov-reporter | coveralls"
+    "coveralls" : "./node_modules/mocha/bin/mocha test --recursive -r blanket -R mocha-lcov-reporter"
   },
   "scripts": {
     "test": "mocha test --recursive -R spec"
