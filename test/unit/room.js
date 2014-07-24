@@ -16,5 +16,11 @@ describe('Room', function(){
       expect(bath.length).to.equal(8);
     });
   });
+  describe('#area', function(){
+    it('should calculate the area of a room', function(){
+      var living = new Room('living room', '10', '10');
+      expect(living.area()).to.equal(100);
+    });
+  });
 
 });

@@ -6,4 +6,8 @@ function Room(name, width, length){
   this.length = parseInt(length);
 }
 
+Room.prototype.area = function(){
+  return this.length * this.width;
+};
+
 module.exports = Room;
