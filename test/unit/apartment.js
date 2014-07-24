@@ -65,5 +65,18 @@ describe('Apartment', function(){
       expect(a1.isAvailable()).to.be.true;
     });
   });
+  describe('#purgeEvicted', function(){
+    it('should remove evicted renters from apartment', function(){
+      var a1 = new Apartment('a1');
+      var renter1 = new Renter('bob', '35', 'm', 'social worker');
+      var renter2 = new Renter('jim', '19', 'm', 'movie star');
+      var renter3 = new Renter('sue', '27', 'f', 'coder');
+      renter1.isEvicted = true;
+      a1.renters.push(renter1, renter2, renter3);
+      a1.purgeEvicted();
+      expect(a1.renters).to.have.length(2);
+    });
+  });
+
 });
 
