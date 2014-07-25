@@ -1,8 +1,5 @@
 'use strict';
 
-var rooms = global.mongodb.collection('rooms');
-//var _ = require('lodash');
-
 function Room(name, width, length){
   this.name = name;
   this.width = parseInt(width);

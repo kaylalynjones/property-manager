@@ -1,32 +1,53 @@
-/* global describe, it, before, beforeEach, afterEach */
+/* global describe, it, before, beforeEach*/
 /* jshint expr:true */
 
 'use strict';
 
 var connect = require('../../app/lib/connect');
+var Mongo = require('mongodb');
 
 var expect = require('chai').expect;
+var Renter = require('../../app/models/renter');
+var Room = require('../../app/models/room');
 var Apartment;
-var Room;
-var Renter;
 
 describe('Apartment', function(){
   before(function(done){
     connect('property-test', function(){
       Apartment = require('../../app/models/apartment');
-      Room = require('../../app/models/room');
-      Renter = require('../../app/models/renter');
       done();
     });
   });
-  //beforeEach(function(done){
-    //global.mongodb.collection('apartments').save({
-    //});
-  //});
-
-  afterEach(function(done){
+  beforeEach(function(done){
     global.mongodb.collection('apartments').remove(function(){
-      done();
+      var a1 = new Apartment('a1');
+      var a2 = new Apartment('a2');
+      var a3 = new Apartment('a3');
+      var r1 = new Room('living', 10, 12);
+      var r2 = new Room('living', 14, 12);
+      var r3 = new Room('living', 10, 10);
+      var r4 = new Room('bathroom', 8, 9);
+      var r5 = new Room('bathroom', 8, 9);
+      var r6 = new Room('bathroom', 7, 8);
+      var r7 = new Room('bedroom', 10, 12);
+      var r8 = new Room('bedroom', 10, 10);
+      var r9 = new Room('bedroom', 9, 11);
+      var tenant1 = new Renter('bill', 30, 'm', 'waiter');
+      var tenant2 = new Renter('gloria', 50, 'f', 'social worker');
+      var tenant3 = new Renter('butch', 25, 'm', 'coder');
+      a1.renters.push(tenant1);
+      a2.renters.push(tenant2);
+      a3.renters.push(tenant3);
+      a1.rooms.push(r1, r4, r7);
+      a2.rooms.push(r2, r5, r8);
+      a3.rooms.push(r3, r6, r9);
+      a1.save(function(){
+        a2.save(function(){
+          a3.save(function(){
+            done();
+          });
+        });
+      });
     });
   });
   describe('constructor', function(){
@@ -116,6 +137,58 @@ describe('Apartment', function(){
 
     });
   });
-  
+  describe('#save', function(){
+    it('should save an apartment to the database', function(done){
+      var a1 = new Apartment('a1');
+      var bill = new Renter('bill', 30, 'm', 'waiter');
+      var r1 = new Room('bedroom', '10', '12');
+      var r2 = new Room('bedroom', '10', '12');
+      var r3 = new Room('living room', '12', '12');
+      var r4 = new Room('bathroom', '8', '8');
+      a1.renters.push(bill);
+      a1.rooms.push(r1,r2,r3,r4);
+      a1.save(function(){
+        expect(a1._id).to.be.instanceof(Mongo.ObjectID);
+        done();
+      });
+    });
+  });
+  describe('.find', function(){
+    it('should find all documents in collection', function(done){
+      Apartment.find({}, function(apartments){
+        expect(apartments).to.be.ok;
+        expect(apartments[0].unit).to.equal('a1');
+        expect(apartments).to.have.length(3);
+        done();
+      });
+    });
+  });
+  describe('.findById', function(){
+    it('should find an  apartment by its id', function(done){
+      Apartment.find({}, function(apartments){
+        var id = apartments[0]._id;
+        Apartment.findById(id, function(apartment){
+          expect(apartment.unit).to.equal('a1');
+          expect(apartment.renters[0].name).to.equal('bill');
+          done();
+        });
+      });
+    });
+  });
+  describe('.deleteById', function(){
+    it('should delete an apartment by its id', function(done){
+      Apartment.find({}, function(apartments){
+        var id = apartments[0]._id;
+        Apartment.deleteById(id, function(){
+          Apartment.find({}, function(apartments2){
+            expect(apartments2).to.have.length(2);
+            expect(apartments2[0].unit).to.equal('a2');
+            done();
+          });
+        });
+      });
+    });
+  });
+
 });
 

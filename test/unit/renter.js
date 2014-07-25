@@ -1,44 +1,15 @@
-/* global describe, it, before, beforeEach, afterEach*/
+/* global describe, it */
 /* jshint expr:true */
 
 'use strict';
 
-var connect = require('../../app/lib/connect');
 
 var expect = require('chai').expect;
-var Renter;
+var Renter = require('../../app/models/renter');
 
 describe('Renter', function(){
-  before(function(done){
-    connect('property-test', function(){
-      Renter = require('../../app/models/renter');
-      done();
-    });
-  });
-  beforeEach(function(done){
-    global.mongodb.collection('renters').insert([
-      {name: 'Jeremy', age: 26, gender: 'm', profession: 'coder'},
-      {name:'Marilyn', age: 30, gender: 'f', profession: 'movie star'},
-      {name:'Mary', age: 45, gender: 'f', profession: 'social worker'},
-      {name:'Steven', age: 24, gender: 'm', profession: 'waiter'},
-      {name:'Katelyn', age: 22, gender: 'f', profession: 'waiter'},
-      {name:'Susan', age: 27, gender: 'f', profession: 'coder'}
-    ], function(){
-      done();
-    });
-  });
-
-  afterEach(function(done){
-    global.mongodb.collection('renters').remove(function(){
-      done();
-    });
-  });
-
-
-  describe('constructor', function(){
-    it('should create a new instance of Renter', function(){
+   it('should create a renter', function(){
       var bob = new Renter('bob', '35', 'm', 'social worker');
-
       expect(bob).to.be.ok;
       expect(bob.name).to.equal('bob');
       expect(bob.age).to.equal(35);
@@ -46,7 +17,7 @@ describe('Renter', function(){
       expect(bob.cash).to.be.within(100,5000);
       expect(bob.isEvicted).to.be.false;
       expect(bob.profession).to.equal('social worker');
-    });
+
   });
   describe('#work', function(){
     it('should add cash to renter when he works', function(){

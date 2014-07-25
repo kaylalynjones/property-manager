@@ -1,6 +1,6 @@
 'use strict';
 
-var apartments = global.mongodb.collection('apartments');
+var collApartment = global.mongodb.collection('apartments');
 //var _ = require('lodash');
 
 function Apartment(unit){
@@ -57,17 +57,36 @@ Apartment.prototype.collectRent = function(){
     total += this.rooms[i].cost();
   }
   total /= this.renters.length;
-  for(var i = 0; i < this.renters.length; i++){
+  for( i = 0; i < this.renters.length; i++){
     this.renters[i].cash -= total;
   }
 };
 
-Apartment.find = function(query, cb) {
-  apartments.find(query, cb);
-}
+Apartment.prototype.save = function(cb){
+  collApartment.save(this, function(err, apartment){
+    cb();
+  });
+};
 
-Apartment.findById = function(id) {
-  apartments.findOne({ _id: id });
-}
+Apartment.find = function(search, cb){
+  collApartment.find(search).toArray(function(err, apartments){
+    cb(apartments);
+  });
+};
+
+Apartment.findById = function(id, cb){
+  var query = {_id:id};
+  collApartment.findOne(query, function(err, apartment){
+    cb(apartment);
+  });
+};
+
+Apartment.deleteById = function(id, cb){
+  var query = {_id:id};
+  collApartment.remove(query, function(){
+    cb();
+  });
+};
+
 
 module.exports = Apartment;

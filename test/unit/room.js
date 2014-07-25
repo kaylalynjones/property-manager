@@ -1,38 +1,13 @@
-/* global describe, it, before, beforeEach, afterEach */
+/* global describe, it */
 /* jshint expr:true */
 
 'use strict';
 
-var connect = require('../../app/lib/connect');
-
 
 var expect = require('chai').expect;
-var Room;
+var Room = require('../../app/models/room');
 
 describe('Room', function(){
-  before(function(done){
-    connect('property-test', function(){
-      Room = require('../../app/models/room');
-      done();
-    });
-  });
-  beforeEach(function(done){
-    global.mongodb.collection('rooms').insert([
-      {name: 'living room', width: 10, length: 10}, {name:'kitchen', width: 8, length: 8},
-      {name:'dining room', width: 7, length:8}, {name: 'bedroom', width: 12, length: 10},
-      {name:'bathroom', width: 9, length:10}, {name:'bedroom', width: 8, length: 9}
-    ], function(){
-      done();
-    });
-  });
-
-  afterEach(function(done){
-    global.mongodb.collection('rooms').remove(function(){
-      done();
-    });
-  });
-
-
   describe('constructor', function(){
     it('should create a new room object', function(){
       var bath = new Room('bathroom', '8', '8');
