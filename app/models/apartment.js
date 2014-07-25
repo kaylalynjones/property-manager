@@ -113,6 +113,30 @@ Apartment.cost = function(cb){
   });
 };
 
+Apartment.tenants = function(cb){
+  Apartment.find({}, function(apartments){
+    var sum = 0;
+    for(var i = 0; i < apartments.length; i++){
+      sum += apartments[i].renters.length;
+    }
+    cb(sum);
+  });
+};
+
+Apartment.revenue = function(cb){
+  Apartment.find({}, function(apartments){
+    var sum = 0;
+    for(var i = 0; i < apartments.length; i++){
+      if(apartments[i].renters.length >= 1){
+        sum += apartments[i].cost();
+      }
+    }
+    cb(sum);
+  });
+};
+
+
+
 //private functions
 
 function proto(apartment){

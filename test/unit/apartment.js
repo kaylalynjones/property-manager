@@ -205,6 +205,21 @@ describe('Apartment', function(){
       });
     });
   });
-
+  describe('.tenants', function(){
+    it('should find the number of tenants in the apartments', function(done){
+      Apartment.tenants(function(tenants){
+        expect(tenants).to.equal(3);
+        done();
+        });
+      });
+    });
+  describe('.revenue', function(){
+    it('should add the revenue for the apartments, with atleast on tenant', function(done){
+      Apartment.revenue(function(revenue){
+        expect(revenue).to.equal(4535);
+        done();
+      });
+    });
+  });
 });
 
