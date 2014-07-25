@@ -1,4 +1,6 @@
 'use strict';
+var renters = global.mongodb.collection('renters');
+//var _ = require('lodash');
 
 function Renter(name, age, gender, profession){
   this.name = name;
