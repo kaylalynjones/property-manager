@@ -189,6 +189,7 @@ describe('Apartment', function(){
       });
     });
   });
+  
 
 });
 

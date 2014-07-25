@@ -1,7 +1,9 @@
 'use strict';
 
 var collApartment = global.mongodb.collection('apartments');
-//var _ = require('lodash');
+var _ = require('lodash');
+var Renter = require('./renter');
+var Room = require('./room');
 
 function Apartment(unit){
   this.unit = unit;
@@ -70,6 +72,9 @@ Apartment.prototype.save = function(cb){
 
 Apartment.find = function(search, cb){
   collApartment.find(search).toArray(function(err, apartments){
+    for(var i = 0; i < apartments.length; i++){
+      apartments[i] = proto(apartments[i]);
+    }
     cb(apartments);
   });
 };
@@ -77,7 +82,7 @@ Apartment.find = function(search, cb){
 Apartment.findById = function(id, cb){
   var query = {_id:id};
   collApartment.findOne(query, function(err, apartment){
-    cb(apartment);
+    cb(proto(apartment));
   });
 };
 
@@ -89,4 +94,23 @@ Apartment.deleteById = function(id, cb){
 };
 
 
+
+
+//private functions
+
+function proto(apartment){
+  var rooms;
+  var renters;
+
+  for(var i = 0; i < apartment.rooms.length; i++){
+    rooms = _.create(Room.prototype, apartment.rooms[i]);
+    apartment.rooms[i] = rooms;
+  }
+  for(i = 0; i < apartment.renters.length; i++){
+    renters = _.create(Renter.prototype, apartment.renters[i]);
+    apartment.renters[i] = renters;
+  }
+
+  return _.create(Apartment.prototype, apartment);
+}
 module.exports = Apartment;
