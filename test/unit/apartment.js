@@ -189,7 +189,22 @@ describe('Apartment', function(){
       });
     });
   });
-  
+  describe('.area', function(){
+    it('should find the total area of the apartment', function(done){
+      Apartment.area(function(area){
+        expect(area).to.equal(907);
+        done();
+      });
+    });
+  });
+  describe('.cost', function(){
+    it('should find the total cost of the apartment', function(done){
+      Apartment.cost(function(cost){
+        expect(cost).to.equal(4535);
+        done();
+      });
+    });
+  });
 
 });
 

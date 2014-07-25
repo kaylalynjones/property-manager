@@ -93,8 +93,25 @@ Apartment.deleteById = function(id, cb){
   });
 };
 
+Apartment.area = function(cb){
+  Apartment.find({}, function(apartments){
+    var sum = 0;
+    for(var i =0; i < apartments.length; i++){
+      sum += apartments[i].area();
+    }
+    cb(sum);
+  });
+};
 
-
+Apartment.cost = function(cb){
+  Apartment.find({}, function(apartments){
+    var sum = 0;
+    for(var i =0; i < apartments.length; i++){
+      sum += apartments[i].cost();
+    }
+    cb(sum);
+  });
+};
 
 //private functions
 
