@@ -53,14 +53,10 @@ Apartment.prototype.purgeEvicted = function(){
 };
 
 Apartment.prototype.collectRent = function(){
-  var total = 0;
-
-  for(var i = 0; i < this.rooms.length; i++){
-    total += this.rooms[i].cost();
-  }
-  total /= this.renters.length;
-  for( i = 0; i < this.renters.length; i++){
-    this.renters[i].cash -= total;
+  if(this.renters.length < 1){return;}
+  var rent = this.cost() / this.renters.length;
+  for(var i = 0; i < this.renters.length; i++){
+    this.renters[i].payRent(rent);
   }
 };
 
